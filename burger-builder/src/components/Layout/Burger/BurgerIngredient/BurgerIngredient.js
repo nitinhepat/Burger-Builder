@@ -1,8 +1,12 @@
 import React, { Component } from "react";
-import
+import classes from './BurgerIngredient.css'
 
     class BurgerIngredient extends Component {
         selectIngredient = () => {
+            
+        }
+
+        render(){
             let ingredient;
             switch (this.props.type) {
                 case ('bread-bottom'):
@@ -33,13 +37,6 @@ import
             }
             return ingredient;
         }
-
-        render(){
-            const ingredient = this.selectIngredient();
-            return (
-                <div>
-                {ingredient}
-                </div>
-            )
-        }
     }
+
+    export default BurgerIngredient;
