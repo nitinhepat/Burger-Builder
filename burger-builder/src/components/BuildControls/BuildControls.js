@@ -11,10 +11,11 @@ const  BuildControls = (props) => {
    
     return <div className={classes.BuildControls}>
             {controls.map(control=>{
-                return <BuildControl label={control.label}
-                        addClicked={()=>props.addClicked(control.type)}
+                return <BuildControl key={control.label} label={control.label}
+                        addClicked={() => props.addClicked(control.type)}
                         removeClicked={()=>props.removeClicked(control.type)}></BuildControl>
             })}
+            <button className={classes.OrderButton}> Order Now</button>
     </div>
 
     

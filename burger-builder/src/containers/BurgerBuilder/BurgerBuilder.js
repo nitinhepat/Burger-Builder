@@ -5,10 +5,30 @@ import classes from './BurgerBuilder.css'
 import BuildControls from "../../components/BuildControls/BuildControls";
 
 class BurgerBuilder extends Component{
+    // state = 
     constructor(){
         super();
+        this.state = {
+            ingredients: {
+                meat:   0,
+                bacon:  0,
+                cheese: 0,
+                salad:  0
+            }
+        }
     }
+    // constructor(){
+    //     super();
+    // }
     addIngredient = (type) =>{
+        const oldCount = this.state.ingredients[type];
+        const newCount = oldCount+1;
+        const updatedIngredients = {
+            ...this.state.ingredients
+        }
+        updatedIngredients[type] = newCount;
+        this.setState({ingredients: updatedIngredients});
+
 
     }
     removeIngredient = (type) =>{
@@ -17,8 +37,10 @@ class BurgerBuilder extends Component{
     render(){
         return (
             <div className={classes.BurgerBuilder}>
-                 <Burger/>
-                 <BuildControls addClicked={this.addIngredient} removeClicked={this.removeIngredient} />
+                 <Burger ingredients={this.state.ingredients}/>
+                 <BuildControls 
+                 addClicked={this.addIngredient} 
+                 removeClicked={this.removeIngredient} />
             </div>
         )
     }
