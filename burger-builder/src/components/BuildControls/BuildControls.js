@@ -13,7 +13,8 @@ const  BuildControls = (props) => {
             {controls.map(control=>{
                 return <BuildControl key={control.label} label={control.label}
                         addClicked={() => props.addClicked(control.type)}
-                        removeClicked={()=>props.removeClicked(control.type)}></BuildControl>
+                        removeClicked={()=>props.removeClicked(control.type)}
+                        disabled={props.disablecontrols[control.type]}></BuildControl>
             })}
             <button className={classes.OrderButton}> Order Now</button>
     </div>
