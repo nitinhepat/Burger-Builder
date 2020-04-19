@@ -3,6 +3,8 @@ import Aux from "../../hoc/Auxillary/Auxillary";
 import Burger from "../../components/Layout/Burger/Burger";
 import classes from './BurgerBuilder.css'
 import BuildControls from "../../components/BuildControls/BuildControls";
+import Modal from "../../components/UI/Modal/Modal";
+import OrderSummary from "../../components/OrderSummary/OrderSummary"
 
 class BurgerBuilder extends Component{
     // state = 
@@ -14,8 +16,15 @@ class BurgerBuilder extends Component{
                 bacon:  0,
                 cheese: 0,
                 salad:  0
-            }
+            },
+            show: false
         }
+    }
+
+    orderDetailsHandler = () =>{
+        this.setState((prevState)=>{
+                return {show: !prevState.show}
+        })
     }
     // constructor(){
     //     super();
@@ -49,11 +58,15 @@ class BurgerBuilder extends Component{
         }
         return (
             <div className={classes.BurgerBuilder}>
+                <Modal show={this.state.show}>
+                    <OrderSummary ingredients={this.state.ingredients} />
+                </Modal>
                  <Burger ingredients={this.state.ingredients}/>
                  <BuildControls 
                  disablecontrols={disablecontrols}
                  addClicked={this.addIngredient} 
-                 removeClicked={this.removeIngredient} />
+                 removeClicked={this.removeIngredient}
+                 orderDetailsHandler={this.orderDetailsHandler} />
             </div>
         )
     }
