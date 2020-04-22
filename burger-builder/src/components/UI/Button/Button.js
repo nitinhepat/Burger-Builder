@@ -1,11 +1,12 @@
 import React from 'react';
 import classes from './Button.css';
 const Button = (props) =>{
-    const classNames =  classes.Button = ' ' + props.btnType;
    console.log('Inside Button');
-   return (<button onClick={props.btnClicked} className={classNames}>
+   return (
+   <button onClick={props.clicked} className={[classes.Button,classes[props.btnType]].join(' ')}>
         {props.children}
-    </button>)
+    </button>
+    )
 }
 
 export default Button;

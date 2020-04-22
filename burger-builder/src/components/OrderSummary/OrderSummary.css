@@ -1,0 +1,7 @@
+.BtnSection {
+    display: flex;
+    justify-content: flex-end;
+}
+.OrderSummary {
+    padding:10px;
+}

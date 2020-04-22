@@ -11,14 +11,17 @@
 }
 
 .Button:first-of-type {
-    margin-left: 0;
-    padding-left: 0;
+    /* margin-left: 0;
+    padding-left: 0; */
 }
+
 
 .Success {
     color: #5C9210;
+    border:1px solid #5C9210;
 }
 
 .Danger {
     color: #944317;
+    border:1px solid #944317;
 }

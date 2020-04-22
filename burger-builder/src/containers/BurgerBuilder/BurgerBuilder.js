@@ -51,21 +51,39 @@ class BurgerBuilder extends Component{
             ingredients: updatedIngredients
         })
     }
+    purchaseContinue = () =>{
+
+    }
+    purchaseCancel = () =>{
+        this.setState({
+            show: false
+        })
+    }
     render(){
         const disablecontrols = {...this.state.ingredients};
         for(let key in disablecontrols){
             disablecontrols[key] = disablecontrols[key] <= 0
         }
+        const purchaseable = Object.keys(this.state.ingredients)
+                            .reduce((acc,ele)=>{
+                                return acc = acc + this.state.ingredients[ele]
+                            },0)
         return (
             <div className={classes.BurgerBuilder}>
-                <Modal show={this.state.show}>
-                    <OrderSummary ingredients={this.state.ingredients} />
+                <Modal show={this.state.show} clicked={this.purchaseCancel}>
+                    <OrderSummary 
+                    ingredients={this.state.ingredients} 
+                    purchaseContinue={this.purchaseContinue}
+                    purchaseCancel={this.purchaseCancel}
+                   
+                    />
                 </Modal>
                  <Burger ingredients={this.state.ingredients}/>
                  <BuildControls 
                  disablecontrols={disablecontrols}
                  addClicked={this.addIngredient} 
                  removeClicked={this.removeIngredient}
+                 purchaseable={purchaseable}
                  orderDetailsHandler={this.orderDetailsHandler} />
             </div>
         )
