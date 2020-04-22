@@ -1,16 +1,23 @@
 import React from 'react';
-import Aux from '../../../hoc/Auxillary/Auxillary';
 import Logo from '../../Logo/Logo';
 import DrawerToggle from './DrawerToggle/DrawerToggle';
+import classes from './Toolbar.css'
+import NavigationItems from '../NavigationItems/NavigationItems';
 
 
-const Toolbar = () =>{
+const Toolbar = (props) =>{
+    console.log('toolbar',classes);
     return (
-        <Aux>
-            <DrawerToggle/>
-            <Logo/>
+        <header className={classes.Toolbar}>
+            <DrawerToggle clicked={props.drawerToggleHandler}/>
+            <Logo height="80%"/>
             
+            <div className={classes.DesktopOnly}>
+                <NavigationItems />
+            </div>
 
-        </Aux>
+        </header>
     )
 }
+
+export default Toolbar;

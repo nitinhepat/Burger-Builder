@@ -2,7 +2,7 @@ import React from 'react';
 import burgerLogo from '../../assets/images/burger-logo.png'
 import classes from './Logo.css'
 
-const Logo = () => {
+const Logo = (props) => {
     return (
         <section className={classes.Logo} style={{
             height: props.height

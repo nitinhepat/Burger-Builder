@@ -1,0 +1,20 @@
+.NavigationItems {
+    display: flex;
+    justify-content: flex-end;
+    list-style: none;
+    color: #fff;
+
+}
+.NavigationItems li{
+    margin: 0 10px;
+}
+
+@media (max-width: 500px){
+    .NavigationItems {
+        justify-content: flex-start;
+        flex-direction: column;
+        color: black;
+        font-weight: bold;
+        padding: 10px;
+    }
+}
