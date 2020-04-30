@@ -63,6 +63,7 @@ class BurgerBuilder extends Component{
             this.setState( { ingredients: response.data } );
         } )
         .catch( error => {
+            console.error("In error")
             this.setState( { ingredientsErr: true } );
         } );
     }
@@ -76,8 +77,8 @@ class BurgerBuilder extends Component{
         for(let key in disablecontrols){
             disablecontrols[key] = disablecontrols[key] <= 0
         }
-        let burger = this.setState.ingredientsErr 
-                     ? <p>Ingredients can't be loaded!</p>
+        let burger = this.state.ingredientsErr 
+                     ? <h3>Ingredients can't be loaded!</h3>
                      : <Spinner/>;
         if(this.state.ingredients){
             const purchaseable = Object.keys(this.state.ingredients)
