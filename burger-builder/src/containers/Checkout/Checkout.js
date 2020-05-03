@@ -23,9 +23,9 @@ class Checkout extends Component {
         this.setState( { ingredients: ingredients, totalPrice: price } );
     }
     render() {
-        <Aux>
+       return ( <Aux>
             <CheckoutSummary ingredients={this.state.ingredients} totalPrice={this.state.totalPrice} />
-        </Aux>
+        </Aux>)
     }
 }
 

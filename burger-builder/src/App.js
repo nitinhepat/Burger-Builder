@@ -10,8 +10,11 @@ function App() {
   return (
     <div className="App">
      <Layout>
-       <Route path="/" component={BurgerBuilder}></Route>
+       <switch>
+      
        <Route path="/checkout" component={Checkout}></Route>
+       <Route path="/" exact component={BurgerBuilder}></Route>
+       </switch>
        {/* <Route path="/orders" component */}
      </Layout>
     </div>
