@@ -2,7 +2,7 @@ import React , {Component}  from 'react';
 import Input from '../../../components/UI/Input/Input';
 
 class ContactData extends Component {
-    contactForm = {
+    state = {
         orderForm: {
             name: {
                 elementType: 'input',
@@ -89,23 +89,26 @@ class ContactData extends Component {
     }
     getFormData = () =>{
         const formData = [];
-        for(let i in this.state.contactForm){
+        for(let i in this.state.orderForm){
             formData.push({
                 key: i,
-                config: this.state.contactForm[i]
+                config: this.state.orderForm[i]
             })
         }
         return formData;
     }
+    inputChangeHandler = (event) => {
+
+    }
     render(){
         const formArr = this.getFormData()
                         .map(field=>{
-                            <Input
+                            return (<Input
+                            key={field.key}
                             value={field.config.valuue}
-                            change={inputChangeHandler}
+                            change={this.inputChangeHandler}
                             elementConfig={field.config.elementConfig}
-
-                             />
+                             />)
                         })
         return (
             <div>
