@@ -1,5 +1,7 @@
-import React , {Component}  from 'react';
+import React, { Component } from 'react';
 import Input from '../../../components/UI/Input/Input';
+import Button from '../../../components/UI/Button/Button';
+import classes from './ContactData.css'
 
 class ContactData extends Component {
     state = {
@@ -77,19 +79,20 @@ class ContactData extends Component {
                 elementType: 'select',
                 elementConfig: {
                     options: [
-                        {value: 'fastest', displayValue: 'Fastest'},
-                        {value: 'cheapest', displayValue: 'Cheapest'}
+                        { value: 'fastest', displayValue: 'Fastest' },
+                        { value: 'cheapest', displayValue: 'Cheapest' }
                     ]
                 },
                 value: '',
                 validation: {},
                 valid: true
             }
-        }
+        },
+        formIsValid: false
     }
-    getFormData = () =>{
+    getFormData = () => {
         const formData = [];
-        for(let i in this.state.orderForm){
+        for (let i in this.state.orderForm) {
             formData.push({
                 key: i,
                 config: this.state.orderForm[i]
@@ -97,22 +100,48 @@ class ContactData extends Component {
         }
         return formData;
     }
-    inputChangeHandler = (event) => {
-
+    inputChangeHandler = (event,key) => {
+        let updatedOrderForm = {
+            ...this.state.orderForm
+        }
+        let field = {...updatedOrderForm[key]}; 
+        field.touched = true;
+        field.value = event.target.value;
+        if(field.validation.required){
+            field.valid =  !!event.target.value.length;
+        }
+        updatedOrderForm[key] = field;
+        let formIsValid = true;
+        for(let key in updatedOrderForm){
+            if(!updatedOrderForm[key].valid){
+                formIsValid = false;
+                break;
+            }
+        }
+        this.setState({
+            orderForm: updatedOrderForm,
+            formIsValid: formIsValid
+        })
     }
-    render(){
-        const formArr = this.getFormData()
-                        .map(field=>{
-                            return (<Input
-                            key={field.key}
-                            value={field.config.valuue}
-                            change={this.inputChangeHandler}
-                            elementConfig={field.config.elementConfig}
-                             />)
-                        })
+
+
+    render() {
+        const formArr = (<form>
+            {this.getFormData()
+                .map(field => {
+                    return (<Input
+                        key={field.key}
+                        value={field.config.value}
+                        changed={(event)=>this.inputChangeHandler(event,field.key)}
+                        invalid={!field.config.valid}
+                        touched={field.config.touched}
+                        elementConfig={field.config.elementConfig}
+                    />)
+                })}</form>)
         return (
-            <div>
+            <div className={classes.ContactData}>
                 {formArr}
+                <Button disabled={!this.state.formIsValid} btnType="Success">Order</Button>
             </div>
         )
     }
