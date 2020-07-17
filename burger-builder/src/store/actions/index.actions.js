@@ -2,5 +2,6 @@ export {
     addIngredients,
     setIngredients,
     fetchIngredientsFailed,
-    fetchIngredients
+    fetchIngredients,
+    removeIngredients
 } from './burgerBuilder.action'

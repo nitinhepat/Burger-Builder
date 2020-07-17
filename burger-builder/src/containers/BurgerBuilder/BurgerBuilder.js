@@ -29,31 +29,15 @@ class BurgerBuilder extends Component {
     //     super();
     // }
     addIngredient = (type) => {
-        const oldCount = this.state.ingredients[type];
-        const newCount = oldCount + 1;
-        const updatedIngredients = {
-            ...this.state.ingredients
-        }
-        updatedIngredients[type] = newCount;
-        this.setState({ ingredients: updatedIngredients });
-
-
+        this.props.addIngredient(type)
     }
     removeIngredient = (type) => {
-        const oldCount = this.state.ingredients[type];
-        const newCount = oldCount - 1;
-        const updatedIngredients = {
-            ...this.state.ingredients
-        };
-        updatedIngredients[type] = newCount;
-        this.setState({
-            ingredients: updatedIngredients
-        })
+        this.props.removeIngredient(type)
     }
     purchaseContinue = () => {
         const queryParams = [];
-        for (let i in this.state.ingredients) {
-            let queryString = `${encodeURIComponent(i)}=${this.state.ingredients[i]}`;
+        for (let i in this.props.ings) {
+            let queryString = `${encodeURIComponent(i)}=${this.props.ings[i]}`;
             queryParams.push(queryString);
         }
         this.props.history.push({
@@ -68,6 +52,7 @@ class BurgerBuilder extends Component {
     }
 
     getIngredients() {
+
         axios.get('ingredients.json')
             .then(response => {
                 this.setState({ ingredients: response.data });
@@ -79,33 +64,33 @@ class BurgerBuilder extends Component {
     }
     componentDidMount() {
         console.log("In component did mount");
-        this.getIngredients();
+        this.props.fetchIngredients();
     }
     render() {
         console.log('In render');
-        const disablecontrols = { ...this.state.ingredients };
+        const disablecontrols = { ...this.props.ings };
         for (let key in disablecontrols) {
             disablecontrols[key] = disablecontrols[key] <= 0
         }
-        let burger = this.state.ingredientsErr
+        let burger = this.props.ingsErr
             ? <h3>Ingredients can't be loaded!</h3>
             : <Spinner />;
-        if (this.state.ingredients) {
-            const purchaseable = Object.keys(this.state.ingredients)
+        if (this.props.ings) {
+            const purchaseable = Object.keys(this.props.ings)
                 .reduce((acc, ele) => {
-                    return acc = acc + this.state.ingredients[ele]
+                    return acc = acc + this.props.ings[ele]
                 }, 0)
 
             burger = (<Aux>
                 <Modal show={this.state.show} clicked={this.purchaseCancel}>
                     <OrderSummary
-                        ingredients={this.state.ingredients}
+                        ingredients={this.props.ings}
                         purchaseContinue={this.purchaseContinue}
                         purchaseCancel={this.purchaseCancel}
 
                     />
                 </Modal>
-                <Burger ingredients={this.state.ingredients} />
+                <Burger ingredients={this.props.ings} />
                 <BuildControls
                     disablecontrols={disablecontrols}
                     addClicked={this.addIngredient}
@@ -135,6 +120,7 @@ const mapDispatchToProps = dispatch =>{
     return {
         addIngredient: (ingName) => dispatch(actions.addIngredients(ingName)),
         fetchIngredients: () => dispatch(actions.fetchIngredients()),
+        removeIngredient: (ingName) =>dispatch(actions.removeIngredients(ingName))
     }
     
 }

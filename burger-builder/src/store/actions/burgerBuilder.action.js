@@ -10,6 +10,13 @@ export const addIngredients = (name) =>{
     }
 }
 
+export const removeIngredients = (name) =>{
+    return {
+        type: actionTypes.REMOVE_INGREDIENT,
+        ingredientName: name
+    }
+}
+
 export const setIngredients = (ingredients) =>{
     return {
         type: actionTypes.FETCH_INGREDIENT,
